@@ -1,6 +1,10 @@
 # Genshin Impact Debugger Bypass
 A dll to prevent genshin impact from crashing.
 
+## To do
+- [ ] A injector for injecting multiple dlls.
+- [ ] Automatically close `mhyprot2` handle.
+
 ## Usage
 1. Inject this dll to genshin before injecting other dlls.![](https://i.imgur.com/ZRrpgCu.png)
 2. Inject other dlls if you want to.
