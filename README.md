@@ -28,7 +28,7 @@ A dll to prevent genshin impact from crashing.
 3. Build it.
 
 ## How to use packet sniffer on akebi-private?
-1. Rename the exe: wireshark.exe to 8273459879.exe for example.
+1. Rename the exe: `wireshark.exe` to `114514_1919810.exe` for example.
 2. You can use packet sniffer now. Time learn how to crack KeyAuth lol
 3. Akebi Private be like: `if (proc_name.find("Wireshark") != std::string::nops);`
 
