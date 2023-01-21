@@ -25,6 +25,7 @@
     <ClInclude Include="source\main.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="source\DebuggerBypass.cpp" />
     <ClCompile Include="source\dllmain.cpp" />
     <ClCompile Include="source\main.cpp" />

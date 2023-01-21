@@ -2,7 +2,7 @@
 #include "Hook.h"
 
 #include <format>
-#define LOG(fmt, ...) printf("%s \n", std::format(fmt, __VA_ARGS__).c_str());
+#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
 
 NtQueryInformationThread_t fnNtQueryInformationThread = nullptr;
 NtSetInformationThread_t fnNtSetInformationThread = nullptr;
@@ -36,13 +36,13 @@ std::string GetLastErrorAsString(DWORD errorId = 0)
 void DebuggerBypassPre()
 {
 	if (!Patch_NtSetInformationThread())
-		LOG("Failed to patch NtSetInformationThread, so main thread will be hidden from debugger. ^(");
+		LOG("Failed to patch NtSetInformationThread. Main thread will be hidden from debugger.");
 }
 
 void DebuggerBypassPost()
 {
 	if (!Patch_DbgUiRemoteBreakin())
-		LOG("Failed to patch DbgUiRemoteBreakin, so when debugger will try to attach, game crash. ^(");
+		LOG("Failed to patch DbgUiRemoteBreakin. The game will crash when you try to attach debbuger.");
 
 	RunVEH();
 	DisableVMP();
@@ -78,7 +78,7 @@ static void FindAPI()
 	HMODULE hNTDLL = GetModuleHandle(L"ntdll.dll");
 	if (hNTDLL == NULL)
 	{
-		LOG("Failed to get the 'ntdll.dll' handle");
+		LOG("Failed to get the \"ntdll.dll\" handle");
 		return;
 	}
 
@@ -132,7 +132,7 @@ static bool IsThreadHidden(DWORD threadID)
 
 	if (hThread == NULL)
 	{
-		LOG(" - Error :{}", GetLastErrorAsString());
+		LOG("\033[%41mError:\033[m {}", GetLastErrorAsString());
 		return false;
 	}
 

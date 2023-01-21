@@ -8,7 +8,7 @@
 #define CALL_ORIGIN(function, ...) \
 	Hook::call(function, __func__, __VA_ARGS__)
 
-#define LOG(fmt, ...) printf("%s \n", std::format(fmt, __VA_ARGS__).c_str());
+#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
 
 
 class Hook
@@ -26,7 +26,7 @@ public:
 	{
 		if (holderMap.count(reinterpret_cast<void *>(handler)) == 0)
 		{
-			LOG("Origin not found for handler: {}. Maybe racing bug.", callerName == nullptr ? "<Unknown>" : callerName);
+			LOG("Origin not found for handler: {}. It might be a racing bug.", callerName == nullptr ? "<Unknown>" : callerName);
 			return nullptr;
 		}
 		return reinterpret_cast<Fn>(holderMap[reinterpret_cast<void *>(handler)]);
@@ -40,8 +40,6 @@ public:
 	}
 
 	// I don't know why
-#ifdef _WIN64
-
 	template <typename RType, typename... Params>
 	static RType call(RType(*handler)(Params...), const char *callerName = nullptr, Params... params)
 	{
@@ -51,31 +49,7 @@ public:
 
 		return RType();
 	}
-
-#else
-
-	template <typename RType, typename... Params>
-	static RType call(RType(__cdecl *handler)(Params...), const char *callerName = nullptr, Params... params)
-	{
-		auto origin = getOrigin(handler, callerName);
-		if (origin != nullptr)
-			return origin(params...);
-
-		return RType();
-	}
-
-	template <typename RType, typename... Params>
-	static RType call(RType(__stdcall *handler)(Params...), const char *callerName = nullptr, Params... params)
-	{
-		auto origin = getOrigin(handler, callerName);
-		if (origin != nullptr)
-			return origin(params...);
-
-		return RType();
-	}
-
-#endif
-
+	
 	static void detachAll() noexcept
 	{
 		for (const auto &[key, value] : holderMap)
