@@ -23,8 +23,11 @@ A dll to prevent genshin impact from crashing.
 2. Open VS2022 and clone the repo(sign in github if it asks to).
 3. Build it.
 
+## How to use packet sniffer on akebi-private?
+1. Rename the exe: wireshark.exe to 8273459879.exe for example.
+2. You can use packet sniffer now. Time learn how to crack KeyAuth lol
+3. Akebi Private be like: `if (proc_name.find("Wireshark") != std::string::nops);`
+
 ## 中文版Readme
-
 https://www.deepl.com/translator
-
 自己用翻譯 好嗎== 我懶得打字
