@@ -18,7 +18,7 @@ void RunMain(HMODULE *phModule)
 
 	while (GetModuleHandle(L"UserAssembly.dll") == nullptr)
 	{
-		LOG("[INFO] UserAssembly.dll isn't initialized. Waiting for 2 second.");
+		LOG("[INFO] UserAssembly.dll isn't initialized. Waiting for 2 seconds.");
 		Sleep(2000);
 	}
 
