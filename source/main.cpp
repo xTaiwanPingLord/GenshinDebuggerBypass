@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <format>
-#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
+#define LOG(fmtstr, ...) printf("%s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
 
 void RunMain(HMODULE *phModule)
 {
@@ -18,7 +18,7 @@ void RunMain(HMODULE *phModule)
 
 	while (GetModuleHandle(L"UserAssembly.dll") == nullptr)
 	{
-		LOG("UserAssembly.dll isn't initialized. Waiting for 2 second.");
+		LOG("[INFO] UserAssembly.dll isn't initialized. Waiting for 2 second.");
 		Sleep(2000);
 	}
 
@@ -28,5 +28,5 @@ void RunMain(HMODULE *phModule)
 
 	DebuggerBypassPost();
 
-	LOG("Debug bypass complete. You can inject other dll now. Happy debugging :)");
+	LOG("[INFO] Debug bypass complete. You can inject other dll now. Happy debugging :)");
 }
