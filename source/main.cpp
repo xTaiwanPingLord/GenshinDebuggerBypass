@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <format>
+#include "CloseHandleByName.h"
 #define LOG(fmtstr, ...) printf("%s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
 
 void RunMain(HMODULE *phModule)
@@ -22,11 +23,16 @@ void RunMain(HMODULE *phModule)
 		Sleep(2000);
 	}
 
-	/* UNCOMMENT THIS and set larger value if your game crashs.*/
-	//LOG("Waiting 10sec for loading game library.");
-	//Sleep(10000);
-
 	DebuggerBypassPost();
 
-	LOG("[INFO] Debug bypass complete. You can inject other dll now. Happy debugging :)");
+	LOG("[INFO] Debug bypass complete. You can inject other dll now. Happy debugging!");
+
+	//这里不加括号编译过不了 傻逼编译器 加了看着难受啊啊啊啊啊啊啊
+	if (CloseHandleByName(L"\\Device\\mhyprot2")) {
+		LOG("[INFO] The Mhyprot2 handle was successfully closed. Happy hacking!");
+	}
+	else
+		LOG("[ERROR] Failed to close mhyprot2 handle. Report this Issue and describe it.");
+
+	return;
 }
