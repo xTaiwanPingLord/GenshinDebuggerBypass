@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\CloseMhyprot3.h" />
     <ClInclude Include="source\DebuggerBypass.h" />
     <ClInclude Include="source\detours.h" />
     <ClInclude Include="source\Hook.h" />
     <ClInclude Include="source\main.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\CloseMhyprot3.cpp" />
     <ClCompile Include="source\DebuggerBypass.cpp" />
     <ClCompile Include="source\dllmain.cpp" />
     <ClCompile Include="source\main.cpp" />
