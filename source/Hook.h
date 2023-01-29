@@ -2,7 +2,7 @@
 #include "detours.h"
 
 #include <format>
-#include <stdio.h>
+#include <cstdio>
 #include <map>
 
 #define CALL_ORIGIN(function, ...) \

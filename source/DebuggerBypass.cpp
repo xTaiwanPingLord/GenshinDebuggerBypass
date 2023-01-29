@@ -2,7 +2,6 @@
 #include "Hook.h"
 
 #include <format>
-#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
 
 NtQueryInformationThread_t fnNtQueryInformationThread = nullptr;
 NtSetInformationThread_t fnNtSetInformationThread = nullptr;
@@ -22,7 +21,7 @@ std::string GetLastErrorAsString(DWORD errorId = 0)
 	//Ask Win32 to give us the string version of that message ID.
 	//The parameters we pass in, tell Win32 to create the buffer that holds the message for us (because we don't yet know how long the message string will be).
 	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-								 NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+		NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
 
 	//Copy the error message into a std::string.
 	std::string message(messageBuffer, size);
@@ -59,7 +58,7 @@ static bool Patch_NtSetInformationThread()
 		return false;
 
 	Hook::install(fnNtSetInformationThread, NtSetInformationThread_Hook);
-	LOG("NtSetInformationThread api hooked. Origin at {:p}", (void *)Hook::getOrigin(NtSetInformationThread_Hook));
+	LOG("NtSetInformationThread api hooked. Origin at {:p}", (void*)Hook::getOrigin(NtSetInformationThread_Hook));
 	return true;
 }
 
@@ -69,7 +68,7 @@ static bool Patch_DbgUiRemoteBreakin()
 		return false;
 
 	Hook::install(fnDbgUiRemoteBreakin, DbgUiRemoteBreakin_Hook);
-	LOG("DbgUiRemoteBreakin api hooked. Origin at {:p}", (void *)Hook::getOrigin(DbgUiRemoteBreakin_Hook));
+	LOG("DbgUiRemoteBreakin api hooked. Origin at {:p}", (void*)Hook::getOrigin(DbgUiRemoteBreakin_Hook));
 	return true;
 }
 
@@ -110,9 +109,9 @@ static void DisableVMP()
 	DWORD oldProtect;
 	auto ntdll = GetModuleHandleA("ntdll.dll");
 	bool isWine = (GetProcAddress(ntdll, "wine_get_version") != NULL);
-	BYTE callCode = ((BYTE *)GetProcAddress(ntdll, isWine ? "NtPulseEvent" : "NtQuerySection"))[4] - 1;
+	BYTE callCode = ((BYTE*)GetProcAddress(ntdll, isWine ? "NtPulseEvent" : "NtQuerySection"))[4] - 1;
 	BYTE restore[] = { 0x4C, 0x8B, 0xD1, 0xB8, callCode };
-	auto nt_vp = (BYTE *)GetProcAddress(ntdll, "NtProtectVirtualMemory");
+	auto nt_vp = (BYTE*)GetProcAddress(ntdll, "NtProtectVirtualMemory");
 	VirtualProtect(nt_vp, sizeof(restore), PAGE_EXECUTE_READWRITE, &oldProtect);
 	memcpy(nt_vp, restore, sizeof(restore));
 	VirtualProtect(nt_vp, sizeof(restore), oldProtect, &oldProtect);

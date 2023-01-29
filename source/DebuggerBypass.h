@@ -1,6 +1,6 @@
 #pragma once
 //#include <Ntdef.h>
-#include <windows.h>
+#include <Windows.h>
 #include <stdio.h>
 #include <string>
 
