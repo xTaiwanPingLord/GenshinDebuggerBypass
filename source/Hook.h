@@ -8,7 +8,7 @@
 #define CALL_ORIGIN(function, ...) \
 	Hook::call(function, __func__, __VA_ARGS__)
 
-#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
+#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str())
 
 
 class Hook
@@ -49,7 +49,7 @@ public:
 
 		return RType();
 	}
-	
+
 	static void detachAll() noexcept
 	{
 		for (const auto &[key, value] : holderMap)

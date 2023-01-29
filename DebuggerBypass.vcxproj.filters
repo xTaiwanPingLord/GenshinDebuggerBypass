@@ -27,7 +27,7 @@
     <ClInclude Include="source\main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\CloseMhyprot3.h">
+    <ClInclude Include="source\CloseMhyprot2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\CloseMhyprot3.cpp">
+    <ClCompile Include="source\CloseMhyprot2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

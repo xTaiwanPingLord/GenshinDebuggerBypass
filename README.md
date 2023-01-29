@@ -3,7 +3,7 @@ A dll to prevent genshin impact from crashing.
 
 ## To do
 - [ ] A injector for injecting multiple dlls.
-- [ ] Automatically close `mhyprot2` handle.
+- [x] Automatically close `mhyprot2` handle. **Special thanks to** [Alukym](https://github.com/Alukym) **for implementing this feature.**
 
 ## Usage
 1. Inject this dll to genshin before injecting other dlls.![](https://i.imgur.com/ZRrpgCu.png)
@@ -15,10 +15,11 @@ A dll to prevent genshin impact from crashing.
 
 ## Why? :sob::sob::skull::skull:
 
-1. I don't like to private things.
+1. I don't like to private things that used to be public.
 2. You can do nothing if you know nothing about reverse engineering. If you are experience in reverse engineering, you should be able to create such tool on your own.
 3. Just like what callow said:
-    **You will release contributors' private code to public? Isn't it selfish?**![](https://i.imgur.com/LX2cL5e.png)
+    **You will release contributors' private code to public? Isn't it selfish?**![](https://i.imgur.com/LX2cL5e.png)<br>
+    If you think I'm leaking codes, then it is.
 
 
 
@@ -34,4 +35,4 @@ A dll to prevent genshin impact from crashing.
 
 ## 中文版Readme
 https://www.deepl.com/translator
-自己用翻譯 好嗎== 我懶得打字
+自己用翻譯 好嗎== 我懶得打字 
