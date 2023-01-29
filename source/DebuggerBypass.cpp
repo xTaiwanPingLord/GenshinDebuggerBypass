@@ -131,7 +131,7 @@ static bool IsThreadHidden(DWORD threadID)
 
 	if (hThread == NULL)
 	{
-		LOG("\033[%41mError:\033[m {}", GetLastErrorAsString());
+		LOG("Error: {}", GetLastErrorAsString());
 		return false;
 	}
 

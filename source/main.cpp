@@ -24,7 +24,7 @@ void RunMain(HMODULE *phModule)
 
 	DebuggerBypassPost();
 
-	LOG("[INFO] Debug bypass complete.");
+	LOG("Debug bypass complete.");
 
 	// 这里不加大括号编译过不了 🖕Fuck C++🖕 🖕Fuck Microsoft🖕 
 	//				^~~ Alukym#0615 是傻逼，不知道LOG展開會有分號，導致一個if出現兩個分號，而且要罵也是罵MSVC不是C++(?)；寫LOG Macro的也是傻逼，不要亂加分號 :(
