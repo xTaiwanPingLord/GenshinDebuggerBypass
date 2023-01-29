@@ -2,7 +2,7 @@
 #include "Hook.h"
 
 #include <format>
-#define LOG(fmtstr, ...) printf("[ DebuggerBypass ] - %s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
+#define LOG(fmtstr, ...) printf("%s\n", std::format(fmtstr, ##__VA_ARGS__).c_str());
 
 NtQueryInformationThread_t fnNtQueryInformationThread = nullptr;
 NtSetInformationThread_t fnNtSetInformationThread = nullptr;
@@ -59,7 +59,6 @@ static bool Patch_NtSetInformationThread()
 		return false;
 
 	Hook::install(fnNtSetInformationThread, NtSetInformationThread_Hook);
-	LOG("NtSetInformationThread api hooked. Origin at {:p}", (void *)Hook::getOrigin(NtSetInformationThread_Hook));
 	return true;
 }
 
@@ -69,7 +68,6 @@ static bool Patch_DbgUiRemoteBreakin()
 		return false;
 
 	Hook::install(fnDbgUiRemoteBreakin, DbgUiRemoteBreakin_Hook);
-	LOG("DbgUiRemoteBreakin api hooked. Origin at {:p}", (void *)Hook::getOrigin(DbgUiRemoteBreakin_Hook));
 	return true;
 }
 
@@ -78,7 +76,7 @@ static void FindAPI()
 	HMODULE hNTDLL = GetModuleHandle(L"ntdll.dll");
 	if (hNTDLL == NULL)
 	{
-		LOG("Failed to get the \"ntdll.dll\" handle");
+		LOG("[ERROR] Failed to get the \"ntdll.dll\" handle");
 		return;
 	}
 
@@ -86,21 +84,21 @@ static void FindAPI()
 	{
 		fnDbgUiRemoteBreakin = reinterpret_cast<DbgUiRemoteBreakin_t>(GetProcAddress(hNTDLL, "DbgUiRemoteBreakin"));
 		if (fnDbgUiRemoteBreakin == nullptr)
-			LOG("GetProcAddress(ntdll::DbgUiRemoteBreakin) failed");
+			LOG("[ERROR] GetProcAddress(ntdll::DbgUiRemoteBreakin) failed");
 	}
 
 	if (fnNtQueryInformationThread == nullptr)
 	{
 		fnNtQueryInformationThread = reinterpret_cast<NtQueryInformationThread_t>(GetProcAddress(hNTDLL, "NtQueryInformationThread"));
 		if (fnNtQueryInformationThread == nullptr)
-			LOG("GetProcAddress(ntdll::NtQueryInformationThread) failed");
+			LOG("[ERROR] GetProcAddress(ntdll::NtQueryInformationThread) failed");
 	}
 
 	if (fnNtSetInformationThread == nullptr)
 	{
 		fnNtSetInformationThread = reinterpret_cast<NtSetInformationThread_t>(GetProcAddress(hNTDLL, "NtSetInformationThread"));
 		if (fnNtSetInformationThread == nullptr)
-			LOG("GetProcAddress(ntdll::NtSetInformationThread) failed");
+			LOG("[ERROR] GetProcAddress(ntdll::NtSetInformationThread) failed");
 	}
 }
 
