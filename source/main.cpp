@@ -15,7 +15,7 @@ void RunMain(HMODULE *phModule)
 	freopen_s((FILE **)stderr, "CONOUT$", "w", stderr);
 	SetConsoleOutputCP(CP_UTF8);
 
-	DebuggerBypassPre();
+	// DebuggerBypassPre();
 
 	while (GetModuleHandle(L"UserAssembly.dll") == nullptr) {
 		LOG("UserAssembly.dll isn't initialized. Waiting for 2 second.");
